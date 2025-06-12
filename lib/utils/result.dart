@@ -19,6 +19,17 @@ sealed class Result<T> {
 
   /// Creates an error [Result], completed with the specified [error].
   const factory Result.error(Exception error) = Error._;
+  R when<R>({
+    required R Function(T value) ok,
+    required R Function(Exception error) error,
+  }) {
+    switch (this) {
+      case Ok<T>(value: final value):
+        return ok(value);
+      case Error<T>(error: final e):
+        return error(e);
+    }
+  }
 }
 
 /// Subclass of Result for values

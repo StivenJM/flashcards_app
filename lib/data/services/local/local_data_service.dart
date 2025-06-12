@@ -7,6 +7,9 @@ import '../../../domain/models/category/category.dart';
 import '../../../domain/models/flashcard/flashcard.dart';
 import '../../../domain/models/study_progress/study_progress.dart';
 import '../../../domain/models/test_result/test_result.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../../domain/models/settings/settings.dart';
+import '../../../domain/models/statistics/statistics.dart';
 
 class LocalDataService {
   Future<List<Category>> getCategories() async {
@@ -57,5 +60,65 @@ class LocalDataService {
   Future<List<Map<String, dynamic>>> _loadStringAsset(String asset) async {
     final localData = await rootBundle.loadString(asset);
     return (jsonDecode(localData) as List).cast<Map<String, dynamic>>();
+  }
+
+  //statistics y settings
+  static const _reviewedKey = 'reviewed';
+  static const _correctKey = 'correct';
+  static const _incorrectKey = 'incorrect';
+
+  Future<Statistics> getStatistics() async {
+    final prefs = await SharedPreferences.getInstance();
+    return Statistics(
+      totalCardsReviewed: prefs.getInt('totalCardsReviewed') ?? 0,
+      correctAnswers: prefs.getInt('correctAnswers') ?? 0,
+      wrongAnswers: prefs.getInt('wrongAnswers') ?? 0,
+      lastReviewed:
+          DateTime.tryParse(prefs.getString('lastReviewed') ?? '') ??
+          DateTime.now(),
+    ); //S
+  }
+
+  Future<void> updateStatistics({required bool wasCorrect}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final reviewed = (prefs.getInt(_reviewedKey) ?? 0) + 1;
+    final correct = (prefs.getInt(_correctKey) ?? 0) + (wasCorrect ? 1 : 0);
+    final incorrect = (prefs.getInt(_incorrectKey) ?? 0) + (wasCorrect ? 0 : 1);
+
+    await prefs.setInt(_reviewedKey, reviewed);
+    await prefs.setInt(_correctKey, correct);
+    await prefs.setInt(_incorrectKey, incorrect);
+  }
+
+  Future<void> resetStatistics() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_reviewedKey, 0);
+    await prefs.setInt(_correctKey, 0);
+    await prefs.setInt(_incorrectKey, 0);
+  }
+
+  Future<void> saveStatistics(Statistics stats) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('totalCardsReviewed', stats.totalCardsReviewed);
+    await prefs.setInt('correctAnswers', stats.correctAnswers);
+    await prefs.setInt('wrongAnswers', stats.wrongAnswers);
+    await prefs.setString('lastReviewed', stats.lastReviewed.toIso8601String());
+  }
+
+  //Settings
+  Future<Settings> getSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    return Settings(
+      isDarkMode: prefs.getBool('isDarkMode') ?? false,
+      language: prefs.getString('language') ?? 'en',
+      enableNotifications: prefs.getBool('enableNotifications') ?? true,
+    );
+  }
+
+  Future<void> saveSettings(Settings settings) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isDarkMode', settings.isDarkMode);
+    await prefs.setString('language', settings.language);
+    await prefs.setBool('enableNotifications', settings.enableNotifications);
   }
 }
