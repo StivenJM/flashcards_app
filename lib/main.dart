@@ -21,7 +21,12 @@ class MainApp extends StatelessWidget {
       localizationsDelegates: [
         GlobalWidgetsLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
         AppLocalizationDelegate(),
+      ],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('es'),
       ],
       scrollBehavior: AppCustomScrollBehavior(),
       theme: AppTheme.lightTheme,

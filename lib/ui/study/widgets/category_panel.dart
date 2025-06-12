@@ -2,79 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../routing/routes.dart';
-import '../../core/ui/error_indicator.dart';
-import '../view_models/home_viewmodel.dart';
+import '../view_models/study_viewmodel.dart';
 import '../../core/localization/applocalization.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.viewModel});
-  final HomeViewModel viewModel;
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    super.initState();
-    widget.viewModel.load.execute();
-    widget.viewModel.deleteCategory.addListener(_onResult);
-  }
-
-  @override
-  void dispose() {
-    widget.viewModel.deleteCategory.removeListener(_onResult);
-    super.dispose();
-  }
-
-  void _onResult() {
-    if (widget.viewModel.deleteCategory.completed) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Category deleted")),
-      );
-    }
-    if (widget.viewModel.deleteCategory.error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Error deleting category")),
-      );
-    }
-    widget.viewModel.deleteCategory.clearResult();
-  }
+class CategoryPanel extends StatelessWidget {
+  const CategoryPanel({super.key, required this.viewModel});
+  final StudyViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Flashcard Study")),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go(Routes.newCategory),
-        child: const Icon(Icons.add),
-      ),
-      body: SafeArea(
-        child: ListenableBuilder(
-          listenable: widget.viewModel.load,
-          builder: (context, child) {
-            if (widget.viewModel.load.running) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (widget.viewModel.load.error) {
-              return ErrorIndicator(
-                title: "Error loading categories",
-                label: "Try again",
-                onPressed: widget.viewModel.load.execute,
-              );
-            }
-            return _CategoryList(viewModel: widget.viewModel);
-          },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Text(
+            AppLocalization.of(context).categories,
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
         ),
-      ),
+        Expanded(child: _CategoryList(viewModel: viewModel)),
+      ],
     );
   }
 }
 
 class _CategoryList extends StatelessWidget {
   const _CategoryList({required this.viewModel});
-  final HomeViewModel viewModel;
+  final StudyViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -99,14 +54,6 @@ class _CategoryList extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(category.name, style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.onPrimary)),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.edit, color: theme.colorScheme.secondary),
-                      onPressed: () => context.push(Routes.editCategory(category.id)),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.delete, color: theme.colorScheme.onError),
-                      onPressed: () => viewModel.deleteCategory.execute(category.id),
                     ),
                   ],
                 ),
