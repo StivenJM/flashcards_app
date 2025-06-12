@@ -1,0 +1,26 @@
+[
+  {
+    "id": "fc1",
+    "categoryId": "cat1",
+    "front": "¿Cuál es el resultado de 2 + 2?",
+    "back": "4",
+    "createdAt": "2024-01-15T12:00:00Z",
+    "updatedAt": "2024-04-01T09:00:00Z"
+  },
+  {
+    "id": "fc2",
+    "categoryId": "cat1",
+    "front": "¿Qué es un número primo?",
+    "back": "Un número mayor que 1 que solo tiene dos divisores: 1 y él mismo.",
+    "createdAt": "2024-01-15T12:05:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": "fc3",
+    "categoryId": "cat2",
+    "front": "¿En qué año comenzó la Segunda Guerra Mundial?",
+    "back": "1939",
+    "createdAt": "2023-12-05T08:00:00Z",
+    "updatedAt": null
+  }
+]

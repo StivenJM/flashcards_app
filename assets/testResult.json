@@ -1,0 +1,16 @@
+[
+  {
+    "id": "tr1",
+    "categoryId": "cat1",
+    "correctAnswers": 45,
+    "incorrectAnswers": 5,
+    "date": "2024-05-21T14:00:00Z"
+  },
+  {
+    "id": "tr2",
+    "categoryId": "cat2",
+    "correctAnswers": 20,
+    "incorrectAnswers": 20,
+    "date": "2024-05-19T17:00:00Z"
+  }
+]

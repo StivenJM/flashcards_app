@@ -1,0 +1,18 @@
+[
+  {
+    "id": "sp1",
+    "categoryId": "cat1",
+    "totalCards": 50,
+    "knownCards": 35,
+    "unknownCards": 15,
+    "studiedAt": "2024-05-20T15:00:00Z"
+  },
+  {
+    "id": "sp2",
+    "categoryId": "cat2",
+    "totalCards": 40,
+    "knownCards": 10,
+    "unknownCards": 30,
+    "studiedAt": "2024-05-18T18:30:00Z"
+  }
+]
