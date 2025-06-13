@@ -8,6 +8,7 @@ import '../ui/home/widgets/home_screen.dart';
 import '../ui/study/view_models/study_viewmodel.dart';
 import '../ui/study/widgets/study_screen.dart';
 import '../ui/not_found/widgets/not_found_screen.dart';
+import '../ui/category/widgets/category_detail_screen.dart';
 import 'routes.dart';
 
 /// Top go_router entry point.
@@ -43,6 +44,15 @@ GoRouter router() => GoRouter(
           },
         ),
       ]
+    ),
+    GoRoute(
+      path: Routes.viewCategory(':categoryId'),
+      pageBuilder: (context, state) {
+        final categoryId = state.pathParameters['categoryId']!;
+        return MaterialPage(
+          child: CategoryDetailScreen(categoryId: categoryId),
+        );
+      },
     ),
   ],
 

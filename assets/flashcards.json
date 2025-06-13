@@ -4,6 +4,7 @@
     "categoryId": "cat1",
     "front": "¿Cuál es el resultado de 2 + 2?",
     "back": "4",
+    "difficulty": 0,
     "createdAt": "2024-01-15T12:00:00Z",
     "updatedAt": "2024-04-01T09:00:00Z"
   },
@@ -12,6 +13,7 @@
     "categoryId": "cat1",
     "front": "¿Qué es un número primo?",
     "back": "Un número mayor que 1 que solo tiene dos divisores: 1 y él mismo.",
+    "difficulty": 1,
     "createdAt": "2024-01-15T12:05:00Z",
     "updatedAt": null
   },
@@ -20,7 +22,107 @@
     "categoryId": "cat2",
     "front": "¿En qué año comenzó la Segunda Guerra Mundial?",
     "back": "1939",
+    "difficulty": 3,
     "createdAt": "2023-12-05T08:00:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": "fc4",
+    "categoryId": "cat2",
+    "front": "¿Quién fue el primer presidente de Estados Unidos?",
+    "back": "George Washington",
+    "difficulty": 2,
+    "createdAt": "2023-12-06T09:00:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": "fc5",
+    "categoryId": "cat3",
+    "front": "¿Cuál es la fórmula química del agua?",
+    "back": "H₂O",
+    "difficulty": 0,
+    "createdAt": "2024-02-21T10:00:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": "fc6",
+    "categoryId": "cat3",
+    "front": "¿Qué órgano es responsable de bombear la sangre?",
+    "back": "El corazón",
+    "difficulty": 1,
+    "createdAt": "2024-02-21T10:10:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": "fc7",
+    "categoryId": "cat4",
+    "front": "¿Qué es un sustantivo?",
+    "back": "Una palabra que nombra personas, animales, cosas o ideas.",
+    "difficulty": 0,
+    "createdAt": "2024-03-06T12:00:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": "fc8",
+    "categoryId": "cat4",
+    "front": "¿Quién escribió 'Don Quijote de la Mancha'?",
+    "back": "Miguel de Cervantes",
+    "difficulty": 2,
+    "createdAt": "2024-03-06T12:10:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": "fc9",
+    "categoryId": "cat5",
+    "front": "¿Cuál es la capital de Francia?",
+    "back": "París",
+    "difficulty": 0,
+    "createdAt": "2024-01-26T14:00:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": "fc10",
+    "categoryId": "cat5",
+    "front": "¿Qué río es el más largo del mundo?",
+    "back": "El Nilo",
+    "difficulty": 1,
+    "createdAt": "2024-01-26T14:10:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": "fc11",
+    "categoryId": "cat5",
+    "front": "¿Qué río es el más largo del mundo?",
+    "back": "El Nilo",
+    "difficulty": 1,
+    "createdAt": "2024-01-26T14:10:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": "fc12",
+    "categoryId": "cat5",
+    "front": "¿Qué río es el más largo del mundo?",
+    "back": "El Nilo",
+    "difficulty": 1,
+    "createdAt": "2024-01-26T14:10:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": "fc13",
+    "categoryId": "cat5",
+    "front": "¿Qué río es el más largo del mundo?",
+    "back": "El Nilo",
+    "difficulty": 1,
+    "createdAt": "2024-01-26T14:10:00Z",
+    "updatedAt": null
+  },
+  {
+    "id": "fc14",
+    "categoryId": "cat5",
+    "front": "¿Qué río es el más largo del mundo?",
+    "back": "El Nilo",
+    "difficulty": 1,
+    "createdAt": "2024-01-26T14:10:00Z",
     "updatedAt": null
   }
 ]

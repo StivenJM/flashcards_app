@@ -14,5 +14,29 @@
     "color": 4294940672,
     "createdAt": "2023-12-01T10:00:00Z",
     "lastStudied": null
+  },
+  {
+    "id": "cat3",
+    "name": "Ciencias Naturales",
+    "description": "Principios básicos de biología, física y química.",
+    "color": 4280391411,
+    "createdAt": "2024-02-20T09:15:00Z",
+    "lastStudied": "2024-05-18T14:00:00Z"
+  },
+  {
+    "id": "cat4",
+    "name": "Lengua Española",
+    "description": "Gramática, ortografía y literatura.",
+    "color": 4283215696,
+    "createdAt": "2024-03-05T11:45:00Z",
+    "lastStudied": null
+  },
+  {
+    "id": "cat5",
+    "name": "Geografía",
+    "description": "Países, capitales y accidentes geográficos.",
+    "color": 4294924066,
+    "createdAt": "2024-01-25T13:20:00Z",
+    "lastStudied": "2024-05-10T10:30:00Z"
   }
 ]
