@@ -7,7 +7,12 @@ abstract final class Routes {
   static const statisticsRelative = 'statistics';
   static const category = '/$categoryRelative';
   static const categoryRelative = 'category';
+  static const quiz = '/$quizRelative';
+  static const quizRelative = 'quiz';
+  static const studySession = '/$studySessionRelative';
+  static const studySessionRelative = 'study-session';
   static String viewCategory(String categoryId) => '$category/$categoryId';
   static String studyCategory(String categoryId) => '$study/$categoryId';
-  static String quiz(String categoryId) => '/quiz/$categoryId';
+  static String studySessionCategory(String categoryId) => '$studySession/$categoryId';
+  static String quizCategory(String categoryId) => '$quiz/$categoryId';
 }

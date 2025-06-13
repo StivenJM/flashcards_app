@@ -6,9 +6,10 @@ import '../view_models/home_viewmodel.dart';
 import '../../core/localization/applocalization.dart';
 
 class CategoryFormDialog extends StatefulWidget {
+  final HomeViewModel viewModel;
   final Category? initialCategory; // null para crear, no null para editar
 
-  const CategoryFormDialog({super.key, this.initialCategory});
+  const CategoryFormDialog({super.key, required this.viewModel, this.initialCategory});
 
   @override
   State<CategoryFormDialog> createState() => _CategoryFormDialogState();
@@ -109,7 +110,7 @@ class _CategoryFormDialogState extends State<CategoryFormDialog> {
         ElevatedButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              final viewModel = context.read<HomeViewModel>();
+              final viewModel = widget.viewModel;
               if (isEdit) {
                 viewModel.updateCategory.execute(widget.initialCategory!.copyWith(
                   name: _name,

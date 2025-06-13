@@ -34,46 +34,57 @@ class _HomeScreenState extends State<HomeScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Category deleted")),
       );
+      // Limpiar el resultado después de mostrar el SnackBar
+      Future.delayed(Duration(milliseconds: 100), () {
+        widget.viewModel.deleteCategory.clearResult();
+      });
     }
     if (widget.viewModel.deleteCategory.error) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Error deleting category")),
       );
+      Future.delayed(Duration(milliseconds: 100), () {
+        widget.viewModel.deleteCategory.clearResult();
+      });
     }
-    widget.viewModel.deleteCategory.clearResult();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Flashcard Study")),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (_) => CategoryFormDialog(),
-          );
-        },
-        child: const Icon(Icons.add),
-      ),
-      body: SafeArea(
-        child: ListenableBuilder(
-          listenable: widget.viewModel.load,
-          builder: (context, child) {
-            if (widget.viewModel.load.running) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (widget.viewModel.load.error) {
-              return ErrorIndicator(
-                title: "Error loading categories",
-                label: "Try again",
-                onPressed: widget.viewModel.load.execute,
+    return ListenableBuilder(
+      listenable: widget.viewModel,
+      builder:(context, child) { 
+        return Scaffold(
+          appBar: AppBar(title: const Text("Flashcard Study")),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => CategoryFormDialog(viewModel: widget.viewModel),
               );
-            }
-            return _CategoryList(viewModel: widget.viewModel);
-          },
-        ),
-      ),
+            },
+            child: const Icon(Icons.add),
+          ),
+          body: SafeArea(
+            child: ListenableBuilder(
+              listenable: widget.viewModel.load,
+              builder: (context, child) {
+                if (widget.viewModel.load.running) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (widget.viewModel.load.error) {
+                  return ErrorIndicator(
+                    title: "Error loading categories",
+                    label: "Try again",
+                    onPressed: widget.viewModel.load.execute,
+                  );
+                }
+                return _CategoryList(viewModel: widget.viewModel);
+              },
+            ),
+          ),
+        );
+      }
     );
   }
 }
@@ -114,7 +125,7 @@ class _CategoryList extends StatelessWidget {
                         onPressed: () {
                           showDialog(
                             context: context,
-                            builder: (_) => CategoryFormDialog(initialCategory: category),
+                            builder: (_) => CategoryFormDialog(viewModel: viewModel, initialCategory: category),
                           );
                         },
                       ),
@@ -130,7 +141,7 @@ class _CategoryList extends StatelessWidget {
                     children: [
                       Expanded(
                         child: ElevatedButton.icon(
-                          onPressed: () => context.push(Routes.studyCategory(category.id)),
+                          onPressed: () => context.push(Routes.studySessionCategory(category.id)),
                           icon: const Icon(Icons.book),
                           label: Text(AppLocalization.of(context).studyNow, style: theme.textTheme.bodyMedium),
                           style: ElevatedButton.styleFrom(backgroundColor: theme.colorScheme.onPrimary),
@@ -139,7 +150,7 @@ class _CategoryList extends StatelessWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         child: ElevatedButton.icon(
-                          onPressed: () => context.push(Routes.quiz(category.id)),
+                          onPressed: () => context.push(Routes.quizCategory(category.id)),
                           icon: const Icon(Icons.play_arrow),
                           label: Text(AppLocalization.of(context).quiz, style: theme.textTheme.bodyMedium),
                           style: ElevatedButton.styleFrom(backgroundColor: theme.colorScheme.onPrimary),

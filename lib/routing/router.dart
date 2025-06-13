@@ -1,3 +1,7 @@
+import 'package:flashcards_app/ui/quiz/view_models/quiz_viewmodel.dart';
+import 'package:flashcards_app/ui/quiz/widgets/quiz_screen.dart';
+import 'package:flashcards_app/ui/study_session/view_models/study_session_viewmodel.dart';
+import 'package:flashcards_app/ui/study_session/widgets/study_session_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -75,6 +79,37 @@ GoRouter router() => GoRouter(
         final categoryId = state.pathParameters['categoryId']!;
         return MaterialPage(
           child: CategoryDetailScreen(categoryId: categoryId),
+        );
+      },
+    ),
+    GoRoute(
+      path: Routes.quizCategory(':categoryId'),
+      pageBuilder: (context, state) {
+        final categoryId = state.pathParameters['categoryId']!;
+        final viewModel = QuizViewModel(
+          categoryRepository: context.read(),
+          flashcardRepository: context.read(),
+          testResultRepository: context.read(),
+          categoryId: categoryId
+        );
+        
+        return MaterialPage(
+          child: QuizScreen(viewModel: viewModel),
+        );
+      },
+    ),
+    GoRoute(
+      path: Routes.studySessionCategory(':categoryId'),
+      pageBuilder: (context, state) {
+        final categoryId = state.pathParameters['categoryId']!;
+        // final viewModel = StudySessionViewModel(
+        //   categoryRepository: context.read(),
+        //   flashcardRepository: context.read(),
+        //   categoryId: categoryId
+        // );
+        
+        return MaterialPage(
+          child: StudySessionScreen(categoryId: categoryId),
         );
       },
     ),

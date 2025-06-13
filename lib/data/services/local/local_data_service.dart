@@ -12,9 +12,14 @@ import '../../../domain/models/settings/settings.dart';
 import '../../../domain/models/statistics/statistics.dart';
 
 class LocalDataService {
+  List<Category>? _categoriesCache;
+
   Future<List<Category>> getCategories() async {
+    if (_categoriesCache != null) return _categoriesCache!;
+
     final json = await _loadStringAsset(Assets.categories);
-    return json.map<Category>((e) => Category.fromJson(e)).toList();
+    _categoriesCache = json.map<Category>((e) => Category.fromJson(e)).toList();
+    return _categoriesCache!;
   }
 
   Future<List<Flashcard>> getFlashcards() async {
@@ -35,14 +40,20 @@ class LocalDataService {
   // Métodos para simular escritura (en memoria o local DB real en el futuro)
   Future<void> saveCategory(Category category) async {
     // Simular guardado local, implementar con base de datos real o archivo JSON si se desea
+    final categories = await getCategories();
+    _categoriesCache = [...categories, category];
   }
 
   Future<void> updateCategory(Category category) async {
     // Simular actualización
+    final categories = await getCategories();
+    _categoriesCache = categories.map((c) => c.id == category.id ? category : c).toList();
   }
 
   Future<void> deleteCategory(String id) async {
     // Simular eliminación
+    final categories = await getCategories();
+    _categoriesCache = categories.where((c) => c.id != id).toList();
   }
 
   Future<void> saveFlashcard(Flashcard flashcard) async {}

@@ -75,7 +75,7 @@ class _CategoryList extends StatelessWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         child: ElevatedButton.icon(
-                          onPressed: () => context.push(Routes.quiz(category.id)),
+                          onPressed: () => context.push(Routes.quizCategory(category.id)),
                           icon: const Icon(Icons.play_arrow),
                           label: Text(AppLocalization.of(context).quiz, style: theme.textTheme.bodyMedium),
                           style: ElevatedButton.styleFrom(backgroundColor: theme.colorScheme.onPrimary),
