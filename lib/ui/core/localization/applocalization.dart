@@ -18,28 +18,37 @@ class AppLocalization {
       'studyTitle': 'Study',
       'statisticsTitle': 'Statistics',
       'settingsTitle': 'Settings',
+
       'categories': 'Categories',
       'flashcards': 'Flashcards',
       'studyProgress': 'Study Progress',
       'testResults': 'Test Results',
+
       'addCategory': 'Add Category',
       'editCategory': 'Edit Category',
       'deleteCategory': 'Delete Category',
+
       'addFlashcard': 'Add Flashcard',
       'editFlashcard': 'Edit Flashcard',
       'deleteFlashcard': 'Delete Flashcard',
+
       'save': 'Save',
       'cancel': 'Cancel',
       'confirm': 'Confirm',
+
       'yes': 'Yes',
       'no': 'No',
+
       'errorLoadingCategories': 'Error loading categories',
       'errorLoadingFlashcards': 'Error loading flashcards',
       'errorLoadingProgress': 'Error loading study progress',
       'errorLoadingResults': 'Error loading test results',
       'errorSavingData': 'Error saving data',
+
       'studyNow': 'Study',
       'quiz': 'Quiz',
+
+      'required': 'Required',
       'tryAgain': 'Try again',
       'loading': 'Loading...',
       'noData': 'No data available',
@@ -49,28 +58,37 @@ class AppLocalization {
       'studyTitle': 'Estudiar',
       'statisticsTitle': 'Estadísticas',
       'settingsTitle': 'Ajustes',
+
       'categories': 'Categorías',
       'flashcards': 'Tarjetas',
       'studyProgress': 'Progreso de estudio',
       'testResults': 'Resultados de prueba',
+
       'addCategory': 'Añadir categoría',
       'editCategory': 'Editar categoría',
       'deleteCategory': 'Eliminar categoría',
+
       'addFlashcard': 'Añadir tarjeta',
       'editFlashcard': 'Editar tarjeta',
       'deleteFlashcard': 'Eliminar tarjeta',
+
       'save': 'Guardar',
       'cancel': 'Cancelar',
       'confirm': 'Confirmar',
+
       'yes': 'Sí',
       'no': 'No',
+
       'errorLoadingCategories': 'Error al cargar categorías',
       'errorLoadingFlashcards': 'Error al cargar tarjetas',
       'errorLoadingProgress': 'Error al cargar el progreso',
       'errorLoadingResults': 'Error al cargar los resultados',
       'errorSavingData': 'Error al guardar datos',
+
       'studyNow': 'Estudiar',
       'quiz': 'Examen',
+
+      'required': 'Obligatorio',
       'tryAgain': 'Inténtalo de nuevo',
       'loading': 'Cargando...',
       'noData': 'No hay datos disponibles',
@@ -111,6 +129,7 @@ class AppLocalization {
   String get errorSavingData => _get('errorSavingData');
   String get studyNow => _get('studyNow');
   String get quiz => _get('quiz');
+  String get required => _get('required');
   String get tryAgain => _get('tryAgain');
   String get loading => _get('loading');
   String get noData => _get('noData');

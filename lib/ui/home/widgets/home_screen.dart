@@ -5,6 +5,7 @@ import '../../../routing/routes.dart';
 import '../../core/ui/error_indicator.dart';
 import '../view_models/home_viewmodel.dart';
 import '../../core/localization/applocalization.dart';
+import 'category_form_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.viewModel});
@@ -47,7 +48,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text("Flashcard Study")),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go(Routes.newCategory),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (_) => CategoryFormDialog(),
+          );
+        },
         child: const Icon(Icons.add),
       ),
       body: SafeArea(
@@ -102,7 +108,12 @@ class _CategoryList extends StatelessWidget {
                     ),
                     IconButton(
                       icon: Icon(Icons.edit, color: theme.colorScheme.secondary),
-                      onPressed: () => context.push(Routes.editCategory(category.id)),
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) => CategoryFormDialog(initialCategory: category),
+                        );
+                      },
                     ),
                     IconButton(
                       icon: Icon(Icons.delete, color: theme.colorScheme.onError),

@@ -3,6 +3,7 @@
     "id": "cat1",
     "name": "Matemáticas",
     "description": "Conceptos de matemáticas básicas.",
+    "color": 4288423856,
     "createdAt": "2024-01-10T08:30:00Z",
     "lastStudied": "2024-05-20T15:00:00Z"
   },
@@ -10,6 +11,7 @@
     "id": "cat2",
     "name": "Historia Mundial",
     "description": "Eventos y personajes importantes.",
+    "color": 4294940672,
     "createdAt": "2023-12-01T10:00:00Z",
     "lastStudied": null
   }
