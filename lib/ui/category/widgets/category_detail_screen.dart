@@ -1,3 +1,4 @@
+import 'package:flashcards_app/domain/models/flashcard/flashcard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../routing/routes.dart';
 import '../../core/localization/applocalization.dart';
 import '../view_models/category_detail_viewmodel.dart';
+import 'flashcard_form_dialog.dart';
 
 class CategoryDetailScreen extends StatelessWidget {
   final String categoryId;
@@ -18,7 +20,8 @@ class CategoryDetailScreen extends StatelessWidget {
       create: (context) => CategoryDetailViewModel(
         categoryRepository: context.read(),
         flashcardRepository: context.read(),
-      )..load(categoryId),
+        categoryId: categoryId
+      ),
       child: Consumer<CategoryDetailViewModel>(
         builder: (context, vm, _) {
           if (vm.isLoading) {
@@ -38,7 +41,10 @@ class CategoryDetailScreen extends StatelessWidget {
                 IconButton(
                   icon: const Icon(Icons.add),
                   onPressed: () {
-                    // Acción para agregar flashcard
+                    showDialog(
+                      context: context,
+                      builder: (_) => FlashcardFormDialog(categoryId: category.id),
+                    );
                   },
                 ),
               ],
@@ -92,9 +98,7 @@ class CategoryDetailScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final flashcard = flashcards[index];
                       return _FlashcardCard(
-                        difficulty: 'N/A', // Si tienes dificultad, cámbialo aquí
-                        question: flashcard.front,
-                        answer: flashcard.back,
+                        flashcard: flashcard
                       );
                     },
                   ),
@@ -109,18 +113,29 @@ class CategoryDetailScreen extends StatelessWidget {
 }
 
 class _FlashcardCard extends StatelessWidget {
-  final String difficulty;
-  final String question;
-  final String answer;
+  final Flashcard flashcard;
 
   const _FlashcardCard({
-    required this.difficulty,
-    required this.question,
-    required this.answer,
+    required this.flashcard,
   });
 
   @override
   Widget build(BuildContext context) {
+    String difficultyLabel;
+    switch (flashcard.difficulty) {
+      case 0:
+        difficultyLabel = 'EASY';
+        break;
+      case 1:
+        difficultyLabel = 'MEDIUM';
+        break;
+      case 2:
+        difficultyLabel = 'HARD';
+        break;
+      default:
+        difficultyLabel = 'N/A';
+    }
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -129,15 +144,28 @@ class _FlashcardCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text('[$difficulty]', style: const TextStyle(fontWeight: FontWeight.bold)),
+                Text(difficultyLabel, style: const TextStyle(fontWeight: FontWeight.bold)),
                 const Spacer(),
-                IconButton(icon: const Icon(Icons.edit), onPressed: () {}),
+                IconButton(
+                  icon: const Icon(Icons.edit), 
+                  onPressed: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      backgroundColor: Colors.transparent,
+                      builder: (_) => FlashcardFormDialog(
+                        initialFlashcard: flashcard,
+                        categoryId: flashcard.categoryId,
+                      ),
+                    );
+                  }
+                ),
                 IconButton(icon: const Icon(Icons.delete), onPressed: () {}),
               ],
             ),
-            Text(question, style: const TextStyle(fontSize: 16)),
+            Text(flashcard.front, style: const TextStyle(fontSize: 16)),
             const Divider(),
-            Text(answer, style: TextStyle(color: Colors.grey[700])),
+            Text(flashcard.back, style: TextStyle(color: Colors.grey[700])),
           ],
         ),
       ),

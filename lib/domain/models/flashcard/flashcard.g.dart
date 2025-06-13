@@ -11,6 +11,7 @@ _Flashcard _$FlashcardFromJson(Map<String, dynamic> json) => _Flashcard(
   categoryId: json['categoryId'] as String,
   front: json['front'] as String,
   back: json['back'] as String,
+  difficulty: (json['difficulty'] as num).toInt(),
   createdAt: DateTime.parse(json['createdAt'] as String),
   updatedAt: json['updatedAt'] == null
       ? null
@@ -23,6 +24,7 @@ Map<String, dynamic> _$FlashcardToJson(_Flashcard instance) =>
       'categoryId': instance.categoryId,
       'front': instance.front,
       'back': instance.back,
+      'difficulty': instance.difficulty,
       'createdAt': instance.createdAt.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
     };

@@ -22,7 +22,7 @@
     "categoryId": "cat2",
     "front": "¿En qué año comenzó la Segunda Guerra Mundial?",
     "back": "1939",
-    "difficulty": 3,
+    "difficulty": 2,
     "createdAt": "2023-12-05T08:00:00Z",
     "updatedAt": null
   },

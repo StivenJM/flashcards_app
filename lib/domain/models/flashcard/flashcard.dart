@@ -10,6 +10,7 @@ abstract class Flashcard with _$Flashcard {
     required String categoryId,
     required String front,
     required String back,
+    required int difficulty,
     required DateTime createdAt,
     DateTime? updatedAt,
   }) = _Flashcard;
