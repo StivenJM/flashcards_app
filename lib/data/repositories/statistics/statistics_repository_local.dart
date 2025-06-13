@@ -10,7 +10,7 @@ class StatisticsRepositoryLocal implements StatisticsRepository {
   final LocalDataService _localDataService;
 
   @override
-  Future<Result<Statistics>> getStatistics() async {
+  Future<Result<List<Statistics>>> getStatistics() async {
     try {
       final statistics = await _localDataService.getStatistics();
       return Result.ok(statistics);

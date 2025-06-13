@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Category {
 
- String get id; String get name; String get description; DateTime get createdAt; DateTime? get lastStudied;
+ String get id; String get name; String get description; int get color; DateTime? get createdAt; DateTime? get lastStudied;
 /// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $CategoryCopyWith<Category> get copyWith => _$CategoryCopyWithImpl<Category>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Category&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.lastStudied, lastStudied) || other.lastStudied == lastStudied));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Category&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.color, color) || other.color == color)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.lastStudied, lastStudied) || other.lastStudied == lastStudied));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,description,createdAt,lastStudied);
+int get hashCode => Object.hash(runtimeType,id,name,description,color,createdAt,lastStudied);
 
 @override
 String toString() {
-  return 'Category(id: $id, name: $name, description: $description, createdAt: $createdAt, lastStudied: $lastStudied)';
+  return 'Category(id: $id, name: $name, description: $description, color: $color, createdAt: $createdAt, lastStudied: $lastStudied)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $CategoryCopyWith<$Res>  {
   factory $CategoryCopyWith(Category value, $Res Function(Category) _then) = _$CategoryCopyWithImpl;
 @useResult
 $Res call({
- String id, String name, String description, DateTime createdAt, DateTime? lastStudied
+ String id, String name, String description, int color, DateTime? createdAt, DateTime? lastStudied
 });
 
 
@@ -66,13 +66,14 @@ class _$CategoryCopyWithImpl<$Res>
 
 /// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? description = null,Object? createdAt = null,Object? lastStudied = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? description = null,Object? color = null,Object? createdAt = freezed,Object? lastStudied = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,lastStudied: freezed == lastStudied ? _self.lastStudied : lastStudied // ignore: cast_nullable_to_non_nullable
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as int,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,lastStudied: freezed == lastStudied ? _self.lastStudied : lastStudied // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }
@@ -84,13 +85,14 @@ as DateTime?,
 @JsonSerializable()
 
 class _Category implements Category {
-  const _Category({required this.id, required this.name, required this.description, required this.createdAt, this.lastStudied});
+  const _Category({required this.id, required this.name, required this.description, required this.color, this.createdAt, this.lastStudied});
   factory _Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);
 
 @override final  String id;
 @override final  String name;
 @override final  String description;
-@override final  DateTime createdAt;
+@override final  int color;
+@override final  DateTime? createdAt;
 @override final  DateTime? lastStudied;
 
 /// Create a copy of Category
@@ -106,16 +108,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Category&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.lastStudied, lastStudied) || other.lastStudied == lastStudied));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Category&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.description, description) || other.description == description)&&(identical(other.color, color) || other.color == color)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.lastStudied, lastStudied) || other.lastStudied == lastStudied));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,description,createdAt,lastStudied);
+int get hashCode => Object.hash(runtimeType,id,name,description,color,createdAt,lastStudied);
 
 @override
 String toString() {
-  return 'Category(id: $id, name: $name, description: $description, createdAt: $createdAt, lastStudied: $lastStudied)';
+  return 'Category(id: $id, name: $name, description: $description, color: $color, createdAt: $createdAt, lastStudied: $lastStudied)';
 }
 
 
@@ -126,7 +128,7 @@ abstract mixin class _$CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res>
   factory _$CategoryCopyWith(_Category value, $Res Function(_Category) _then) = __$CategoryCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String name, String description, DateTime createdAt, DateTime? lastStudied
+ String id, String name, String description, int color, DateTime? createdAt, DateTime? lastStudied
 });
 
 
@@ -143,13 +145,14 @@ class __$CategoryCopyWithImpl<$Res>
 
 /// Create a copy of Category
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? description = null,Object? createdAt = null,Object? lastStudied = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? description = null,Object? color = null,Object? createdAt = freezed,Object? lastStudied = freezed,}) {
   return _then(_Category(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
-as String,createdAt: null == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
-as DateTime,lastStudied: freezed == lastStudied ? _self.lastStudied : lastStudied // ignore: cast_nullable_to_non_nullable
+as String,color: null == color ? _self.color : color // ignore: cast_nullable_to_non_nullable
+as int,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,lastStudied: freezed == lastStudied ? _self.lastStudied : lastStudied // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }

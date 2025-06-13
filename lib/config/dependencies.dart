@@ -10,6 +10,8 @@ import '../data/repositories/study_progress/study_progress_repository.dart';
 import '../data/repositories/study_progress/study_progress_repository_local.dart';
 import '../data/repositories/test_result/test_result_repository.dart';
 import '../data/repositories/test_result/test_result_repository_local.dart';
+import '../data/repositories/statistics/statistics_repository.dart';
+import '../data/repositories/statistics/statistics_repository_local.dart';
 
 /// Configure dependencies for local data.
 /// This dependency list uses repositories that provide local data.
@@ -39,6 +41,12 @@ List<SingleChildWidget> get providersLocal {
           (context) =>
               TestResultRepositoryLocal(localDataService: context.read())
                   as TestResultRepository,
+    ),
+    Provider(
+      create:
+          (context) =>
+              StatisticsRepositoryLocal(localDataService: context.read())
+                  as StatisticsRepository,
     ),
   ];
 }

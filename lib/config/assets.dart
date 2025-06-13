@@ -3,4 +3,5 @@ abstract final class Assets {
   static const flashcards = 'assets/flashcards.json';
   static const studyProgresses = 'assets/studyProgresses.json';
   static const testResults = 'assets/testResults.json';
+  static const statistics = 'assets/statistics.json';
 }

@@ -10,7 +10,10 @@ _Category _$CategoryFromJson(Map<String, dynamic> json) => _Category(
   id: json['id'] as String,
   name: json['name'] as String,
   description: json['description'] as String,
-  createdAt: DateTime.parse(json['createdAt'] as String),
+  color: (json['color'] as num).toInt(),
+  createdAt: json['createdAt'] == null
+      ? null
+      : DateTime.parse(json['createdAt'] as String),
   lastStudied: json['lastStudied'] == null
       ? null
       : DateTime.parse(json['lastStudied'] as String),
@@ -20,6 +23,7 @@ Map<String, dynamic> _$CategoryToJson(_Category instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'description': instance.description,
-  'createdAt': instance.createdAt.toIso8601String(),
+  'color': instance.color,
+  'createdAt': instance.createdAt?.toIso8601String(),
   'lastStudied': instance.lastStudied?.toIso8601String(),
 };

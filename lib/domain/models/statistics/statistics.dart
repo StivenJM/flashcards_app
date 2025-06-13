@@ -1,27 +1,17 @@
-class Statistics {
-  final int totalCardsReviewed;
-  final int correctAnswers;
-  final int wrongAnswers;
-  final DateTime lastReviewed;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Statistics({
-    required this.totalCardsReviewed,
-    required this.correctAnswers,
-    required this.wrongAnswers,
-    required this.lastReviewed,
-  });
+part 'statistics.freezed.dart';
+part 'statistics.g.dart';
 
-  Statistics copyWith({
-    int? totalCardsReviewed,
-    int? correctAnswers,
-    int? wrongAnswers,
-    DateTime? lastReviewed,
-  }) {
-    return Statistics(
-      totalCardsReviewed: totalCardsReviewed ?? this.totalCardsReviewed,
-      correctAnswers: correctAnswers ?? this.correctAnswers,
-      wrongAnswers: wrongAnswers ?? this.wrongAnswers,
-      lastReviewed: lastReviewed ?? this.lastReviewed,
-    );
-  }
+@freezed
+abstract class Statistics with _$Statistics {
+  const factory Statistics({
+    required int totalCardsReviewed,
+    required int correctAnswers,
+    required int wrongAnswers,
+    required DateTime lastReviewed,
+  }) = _Statistics;
+
+  factory Statistics.fromJson(Map<String, Object?> json) =>
+      _$StatisticsFromJson(json);
 }

@@ -1,8 +1,13 @@
 abstract final class Routes {
-  static const home = '/';
-  static const newCategory = '/$newCategoryRelative';
-  static const newCategoryRelative = 'new-category';
-  static String editCategory(String categoryId) => '/editCategory/$categoryId';
-  static String study(String categoryId) => '/study/$categoryId';
+  static const home = '/$homeRelative';
+  static const homeRelative = 'home';
+  static const study = '/$studyRelative';
+  static const studyRelative = 'study';
+  static const statistics = '/$statisticsRelative';
+  static const statisticsRelative = 'statistics';
+  static const category = '/$categoryRelative';
+  static const categoryRelative = 'category';
+  static String viewCategory(String categoryId) => '$category/$categoryId';
+  static String studyCategory(String categoryId) => '$study/$categoryId';
   static String quiz(String categoryId) => '/quiz/$categoryId';
 }

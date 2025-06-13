@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../domain/models/category/category.dart';
 import '../../../routing/routes.dart';
-import '../../core/themes/colors.dart';
-import '../../core/themes/dimens.dart';
 import '../../core/ui/error_indicator.dart';
 import '../view_models/home_viewmodel.dart';
+import '../../core/localization/applocalization.dart';
+import 'category_form_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.viewModel});
@@ -49,10 +48,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text("Flashcard Study")),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go(Routes.newCategory),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (_) => CategoryFormDialog(),
+          );
+        },
         child: const Icon(Icons.add),
       ),
-      bottomNavigationBar: const _BottomNavigationBar(),
       body: SafeArea(
         child: ListenableBuilder(
           listenable: widget.viewModel.load,
@@ -88,80 +91,68 @@ class _CategoryList extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       itemBuilder: (_, index) {
         final category = viewModel.categories[index];
-        return Card(
-          elevation: 2,
-          margin: const EdgeInsets.symmetric(vertical: 8),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          color: theme.colorScheme.primary,
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Text(category.name, style: theme.textTheme.titleLarge?.copyWith(color: theme.colorScheme.onPrimary)),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.edit, color: theme.colorScheme.secondary),
-                      onPressed: () => context.push(Routes.editCategory(category.id)),
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.delete, color: theme.colorScheme.onError),
-                      onPressed: () => viewModel.deleteCategory.execute(category.id),
-                    ),
-                  ],
-                ),
-                Text(category.description, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: theme.colorScheme.secondary)),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: () => context.push(Routes.study(category.id)),
-                        icon: const Icon(Icons.book),
-                        label: const Text("Study"),
-                        style: ElevatedButton.styleFrom(backgroundColor: theme.colorScheme.onPrimary),
+        return InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: () => context.push(Routes.viewCategory(category.id)),
+          child: Card(
+            elevation: 2,
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            color: theme.colorScheme.primary,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(category.name, style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.onPrimary)),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: ElevatedButton.icon(
-                        onPressed: () => context.push(Routes.quiz(category.id)),
-                        icon: const Icon(Icons.play_arrow),
-                        label: const Text("Quiz"),
-                        style: ElevatedButton.styleFrom(backgroundColor: theme.colorScheme.onPrimary),
+                      IconButton(
+                        icon: Icon(Icons.edit, color: theme.colorScheme.secondary),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => CategoryFormDialog(initialCategory: category),
+                          );
+                        },
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      IconButton(
+                        icon: Icon(Icons.delete, color: theme.colorScheme.onError),
+                        onPressed: () => viewModel.deleteCategory.execute(category.id),
+                      ),
+                    ],
+                  ),
+                  Text(category.description, style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.secondary)),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: () => context.push(Routes.studyCategory(category.id)),
+                          icon: const Icon(Icons.book),
+                          label: Text(AppLocalization.of(context).studyNow, style: theme.textTheme.bodyMedium),
+                          style: ElevatedButton.styleFrom(backgroundColor: theme.colorScheme.onPrimary),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          onPressed: () => context.push(Routes.quiz(category.id)),
+                          icon: const Icon(Icons.play_arrow),
+                          label: Text(AppLocalization.of(context).quiz, style: theme.textTheme.bodyMedium),
+                          style: ElevatedButton.styleFrom(backgroundColor: theme.colorScheme.onPrimary),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );
       },
-    );
-  }
-}
-
-class _BottomNavigationBar extends StatelessWidget {
-  const _BottomNavigationBar();
-
-  @override
-  Widget build(BuildContext context) {
-    return NavigationBar(
-      indicatorColor: Theme.of(context).colorScheme.onSurface,
-      selectedIndex: 0,
-      onDestinationSelected: (int index) {
-        // Puedes definir rutas específicas aquí
-      },
-      destinations: const [
-        NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
-        NavigationDestination(icon: Icon(Icons.book), label: 'Study'),
-        NavigationDestination(icon: Icon(Icons.bar_chart), label: 'Statistics'),
-        NavigationDestination(icon: Icon(Icons.settings), label: 'Settings'),
-      ],
     );
   }
 }

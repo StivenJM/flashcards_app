@@ -67,16 +67,19 @@ class LocalDataService {
   static const _correctKey = 'correct';
   static const _incorrectKey = 'incorrect';
 
-  Future<Statistics> getStatistics() async {
-    final prefs = await SharedPreferences.getInstance();
-    return Statistics(
-      totalCardsReviewed: prefs.getInt('totalCardsReviewed') ?? 0,
-      correctAnswers: prefs.getInt('correctAnswers') ?? 0,
-      wrongAnswers: prefs.getInt('wrongAnswers') ?? 0,
-      lastReviewed:
-          DateTime.tryParse(prefs.getString('lastReviewed') ?? '') ??
-          DateTime.now(),
-    ); //S
+  Future<List<Statistics>> getStatistics() async {
+    // final prefs = await SharedPreferences.getInstance();
+    // return Statistics(
+    //   totalCardsReviewed: prefs.getInt('totalCardsReviewed') ?? 0,
+    //   correctAnswers: prefs.getInt('correctAnswers') ?? 0,
+    //   wrongAnswers: prefs.getInt('wrongAnswers') ?? 0,
+    //   lastReviewed:
+    //       DateTime.tryParse(prefs.getString('lastReviewed') ?? '') ??
+    //       DateTime.now(),
+    // ); //S
+
+    final json = await _loadStringAsset(Assets.statistics);
+    return json.map<Statistics>((e) => Statistics.fromJson(e)).toList();
   }
 
   Future<void> updateStatistics({required bool wasCorrect}) async {

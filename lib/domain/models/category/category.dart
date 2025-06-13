@@ -9,7 +9,8 @@ abstract class Category with _$Category {
     required String id,
     required String name,
     required String description,
-    required DateTime createdAt,
+    required int color,
+    DateTime? createdAt,
     DateTime? lastStudied,
   }) = _Category;
 

@@ -72,3 +72,4 @@ flutter:
     - assets/flashcards.json
     - assets/studyProgress.json
     - assets/testResult.json
+    - assets/statistics.json

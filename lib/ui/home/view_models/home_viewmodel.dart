@@ -9,6 +9,8 @@ class HomeViewModel extends ChangeNotifier {
   HomeViewModel({required CategoryRepository categoryRepository})
       : _categoryRepository = categoryRepository {
     load = Command0(_load)..execute();
+    addCategory = Command1(_addCategory);
+    updateCategory = Command1(_updateCategory);
     deleteCategory = Command1(_deleteCategory);
   }
 
@@ -18,12 +20,32 @@ class HomeViewModel extends ChangeNotifier {
   List<model.Category> get categories => _categories;
 
   late Command0 load;
+  late Command1<void, model.Category> addCategory;
+  late Command1<void, model.Category> updateCategory;
   late Command1<void, String> deleteCategory;
 
   Future<Result> _load() async {
     final result = await _categoryRepository.getCategories();
     if (result case Ok<List<model.Category>>(:final value)) {
       _categories = value;
+    }
+    notifyListeners();
+    return result;
+  }
+
+  Future<Result<void>> _addCategory(model.Category category) async {
+    final result = await _categoryRepository.addCategory(category);
+    if (result case Ok()) {
+      await _load();
+    }
+    notifyListeners();
+    return result;
+  }
+
+  Future<Result<void>> _updateCategory(model.Category category) async {
+    final result = await _categoryRepository.updateCategory(category);
+    if (result case Ok()) {
+      await _load();
     }
     notifyListeners();
     return result;
